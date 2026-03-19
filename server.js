@@ -1,25 +1,21 @@
-//desegames132_db_user
-//nf8EMdEER9tbYGQX
-
 const { PrismaClient } = require('@prisma/client');
 
 const prisma = new PrismaClient();
-
 const express = require("express");
 const app = express();
 
 app.use(express.json());
 
-//Rota que o FRONT END VAI ACESSAR
 app.post('/usuarios', async (request, response) => {
 
     const { name, email, telefone } = request.body;
 
     const user = await prisma.user.create({
+        
         data: {
             name,
             email,
-            telefone
+            telefone     
         }
     })
 
@@ -34,7 +30,8 @@ app.delete('/usuarios/deletar/:id', async (request, response) => {
     const id = request.params.id;
 
     const userDeleted = await prisma.user.delete({
-        where: {id}
+        
+        where: { id }
     })
 
     return response.status(200).send(userDeleted)
